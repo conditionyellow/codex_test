@@ -10,7 +10,7 @@
 
 ## セクション構成
 1. **ヒーローセクション**
-   - 背景画像: `oyaryo_microsoft_announces_new_virtual_experiences_in_the_style_9b81a524-f92c-4a61-9a68-0de4a53d7867.png`
+   - 背景画像: `background.png`
    - キャッチコピー: `Elevate Your Story with Captivating Visuals`
    - サブテキスト: `We craft compelling video content that resonates with your audience and drives results.`
    - ボタン: `Get a Quote`
@@ -58,7 +58,7 @@
 ```
 / 
 ├ index.html
-├ oyaryo_microsoft_announces_new_virtual_experiences_in_the_style_9b81a524-f92c-4a61-9a68-0de4a53d7867.png
+├ background.png
 ├ README.md
 └ docs/
    └ SPECIFICATION.md
