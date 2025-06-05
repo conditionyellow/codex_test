@@ -1,0 +1,397 @@
+[
+  {
+    "name": "aquator",
+    "carry": 0,
+    "flags": [
+      "ISMEAN"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 20,
+      "lvl": 5,
+      "arm": 2,
+      "hpt": 1,
+      "dmg": "0x0/0x0"
+    }
+  },
+  {
+    "name": "bat",
+    "carry": 0,
+    "flags": [
+      "ISFLY"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 1,
+      "lvl": 1,
+      "arm": 3,
+      "hpt": 1,
+      "dmg": "1x2"
+    }
+  },
+  {
+    "name": "centaur",
+    "carry": 15,
+    "flags": [
+      "0"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 17,
+      "lvl": 4,
+      "arm": 4,
+      "hpt": 1,
+      "dmg": "1x2/1x5/1x5"
+    }
+  },
+  {
+    "name": "dragon",
+    "carry": 100,
+    "flags": [
+      "ISMEAN"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 5000,
+      "lvl": 10,
+      "arm": -1,
+      "hpt": 1,
+      "dmg": "1x8/1x8/3x10"
+    }
+  },
+  {
+    "name": "emu",
+    "carry": 0,
+    "flags": [
+      "ISMEAN"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 2,
+      "lvl": 1,
+      "arm": 7,
+      "hpt": 1,
+      "dmg": "1x2"
+    }
+  },
+  {
+    "name": "venus flytrap",
+    "carry": 0,
+    "flags": [
+      "ISMEAN"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 80,
+      "lvl": 8,
+      "arm": 3,
+      "hpt": 1,
+      "dmg": "%%%x0"
+    }
+  },
+  {
+    "name": "griffin",
+    "carry": 20,
+    "flags": [
+      "ISMEAN",
+      "ISFLY",
+      "ISREGEN"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 2000,
+      "lvl": 13,
+      "arm": 2,
+      "hpt": 1,
+      "dmg": "4x3/3x5"
+    }
+  },
+  {
+    "name": "hobgoblin",
+    "carry": 0,
+    "flags": [
+      "ISMEAN"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 3,
+      "lvl": 1,
+      "arm": 5,
+      "hpt": 1,
+      "dmg": "1x8"
+    }
+  },
+  {
+    "name": "ice monster",
+    "carry": 0,
+    "flags": [
+      "0"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 5,
+      "lvl": 1,
+      "arm": 9,
+      "hpt": 1,
+      "dmg": "0x0"
+    }
+  },
+  {
+    "name": "jabberwock",
+    "carry": 70,
+    "flags": [
+      "0"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 3000,
+      "lvl": 15,
+      "arm": 6,
+      "hpt": 1,
+      "dmg": "2x12/2x4"
+    }
+  },
+  {
+    "name": "kestrel",
+    "carry": 0,
+    "flags": [
+      "ISMEAN",
+      "ISFLY"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 1,
+      "lvl": 1,
+      "arm": 7,
+      "hpt": 1,
+      "dmg": "1x4"
+    }
+  },
+  {
+    "name": "leprechaun",
+    "carry": 0,
+    "flags": [
+      "0"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 10,
+      "lvl": 3,
+      "arm": 8,
+      "hpt": 1,
+      "dmg": "1x1"
+    }
+  },
+  {
+    "name": "medusa",
+    "carry": 40,
+    "flags": [
+      "ISMEAN"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 200,
+      "lvl": 8,
+      "arm": 2,
+      "hpt": 1,
+      "dmg": "3x4/3x4/2x5"
+    }
+  },
+  {
+    "name": "nymph",
+    "carry": 100,
+    "flags": [
+      "0"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 37,
+      "lvl": 3,
+      "arm": 9,
+      "hpt": 1,
+      "dmg": "0x0"
+    }
+  },
+  {
+    "name": "orc",
+    "carry": 15,
+    "flags": [
+      "ISGREED"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 5,
+      "lvl": 1,
+      "arm": 6,
+      "hpt": 1,
+      "dmg": "1x8"
+    }
+  },
+  {
+    "name": "phantom",
+    "carry": 0,
+    "flags": [
+      "ISINVIS"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 120,
+      "lvl": 8,
+      "arm": 3,
+      "hpt": 1,
+      "dmg": "4x4"
+    }
+  },
+  {
+    "name": "quagga",
+    "carry": 0,
+    "flags": [
+      "ISMEAN"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 15,
+      "lvl": 3,
+      "arm": 3,
+      "hpt": 1,
+      "dmg": "1x5/1x5"
+    }
+  },
+  {
+    "name": "rattlesnake",
+    "carry": 0,
+    "flags": [
+      "ISMEAN"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 9,
+      "lvl": 2,
+      "arm": 3,
+      "hpt": 1,
+      "dmg": "1x6"
+    }
+  },
+  {
+    "name": "snake",
+    "carry": 0,
+    "flags": [
+      "ISMEAN"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 2,
+      "lvl": 1,
+      "arm": 5,
+      "hpt": 1,
+      "dmg": "1x3"
+    }
+  },
+  {
+    "name": "troll",
+    "carry": 50,
+    "flags": [
+      "ISREGEN",
+      "ISMEAN"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 120,
+      "lvl": 6,
+      "arm": 4,
+      "hpt": 1,
+      "dmg": "1x8/1x8/2x6"
+    }
+  },
+  {
+    "name": "black unicorn",
+    "carry": 0,
+    "flags": [
+      "ISMEAN"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 190,
+      "lvl": 7,
+      "arm": -2,
+      "hpt": 1,
+      "dmg": "1x9/1x9/2x9"
+    }
+  },
+  {
+    "name": "vampire",
+    "carry": 20,
+    "flags": [
+      "ISREGEN",
+      "ISMEAN"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 350,
+      "lvl": 8,
+      "arm": 1,
+      "hpt": 1,
+      "dmg": "1x10"
+    }
+  },
+  {
+    "name": "wraith",
+    "carry": 0,
+    "flags": [
+      "0"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 55,
+      "lvl": 5,
+      "arm": 4,
+      "hpt": 1,
+      "dmg": "1x6"
+    }
+  },
+  {
+    "name": "xeroc",
+    "carry": 30,
+    "flags": [
+      "0"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 100,
+      "lvl": 7,
+      "arm": 7,
+      "hpt": 1,
+      "dmg": "4x4"
+    }
+  },
+  {
+    "name": "yeti",
+    "carry": 30,
+    "flags": [
+      "0"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 50,
+      "lvl": 4,
+      "arm": 6,
+      "hpt": 1,
+      "dmg": "1x6/1x6"
+    }
+  },
+  {
+    "name": "zombie",
+    "carry": 0,
+    "flags": [
+      "ISMEAN"
+    ],
+    "stats": {
+      "str": 10,
+      "exp": 6,
+      "lvl": 2,
+      "arm": 8,
+      "hpt": 1,
+      "dmg": "1x8"
+    }
+  }
+]

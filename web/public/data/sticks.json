@@ -1,0 +1,100 @@
+[
+  {
+    "name": "light",
+    "prob": 12,
+    "worth": 250,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "invisibility",
+    "prob": 6,
+    "worth": 5,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "lightning",
+    "prob": 3,
+    "worth": 330,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "fire",
+    "prob": 3,
+    "worth": 330,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "cold",
+    "prob": 3,
+    "worth": 330,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "polymorph",
+    "prob": 15,
+    "worth": 310,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "magic missile",
+    "prob": 10,
+    "worth": 170,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "haste monster",
+    "prob": 10,
+    "worth": 5,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "slow monster",
+    "prob": 11,
+    "worth": 350,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "drain life",
+    "prob": 9,
+    "worth": 300,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "nothing",
+    "prob": 1,
+    "worth": 5,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "teleport away",
+    "prob": 6,
+    "worth": 340,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "teleport to",
+    "prob": 6,
+    "worth": 50,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "cancellation",
+    "prob": 5,
+    "worth": 280,
+    "guess": null,
+    "know": false
+  }
+]

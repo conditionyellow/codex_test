@@ -1,0 +1,65 @@
+[
+  {
+    "name": "mace",
+    "prob": 11,
+    "worth": 8,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "long sword",
+    "prob": 11,
+    "worth": 15,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "short bow",
+    "prob": 12,
+    "worth": 15,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "arrow",
+    "prob": 12,
+    "worth": 1,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "dagger",
+    "prob": 8,
+    "worth": 3,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "two handed sword",
+    "prob": 10,
+    "worth": 75,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "dart",
+    "prob": 12,
+    "worth": 2,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "shuriken",
+    "prob": 12,
+    "worth": 5,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "spear",
+    "prob": 12,
+    "worth": 5,
+    "guess": null,
+    "know": false
+  }
+]

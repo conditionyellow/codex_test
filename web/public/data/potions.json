@@ -1,0 +1,100 @@
+[
+  {
+    "name": "confusion",
+    "prob": 7,
+    "worth": 5,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "hallucination",
+    "prob": 8,
+    "worth": 5,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "poison",
+    "prob": 8,
+    "worth": 5,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "gain strength",
+    "prob": 13,
+    "worth": 150,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "see invisible",
+    "prob": 3,
+    "worth": 100,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "healing",
+    "prob": 13,
+    "worth": 130,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "monster detection",
+    "prob": 6,
+    "worth": 130,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "magic detection",
+    "prob": 6,
+    "worth": 105,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "raise level",
+    "prob": 2,
+    "worth": 250,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "extra healing",
+    "prob": 5,
+    "worth": 200,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "haste self",
+    "prob": 5,
+    "worth": 190,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "restore strength",
+    "prob": 13,
+    "worth": 130,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "blindness",
+    "prob": 5,
+    "worth": 5,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "levitation",
+    "prob": 6,
+    "worth": 75,
+    "guess": null,
+    "know": false
+  }
+]

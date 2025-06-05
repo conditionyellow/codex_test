@@ -1,0 +1,100 @@
+[
+  {
+    "name": "protection",
+    "prob": 9,
+    "worth": 400,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "add strength",
+    "prob": 9,
+    "worth": 400,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "sustain strength",
+    "prob": 5,
+    "worth": 280,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "searching",
+    "prob": 10,
+    "worth": 420,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "see invisible",
+    "prob": 10,
+    "worth": 310,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "adornment",
+    "prob": 1,
+    "worth": 10,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "aggravate monster",
+    "prob": 10,
+    "worth": 10,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "dexterity",
+    "prob": 8,
+    "worth": 440,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "increase damage",
+    "prob": 8,
+    "worth": 400,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "regeneration",
+    "prob": 4,
+    "worth": 460,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "slow digestion",
+    "prob": 9,
+    "worth": 240,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "teleportation",
+    "prob": 5,
+    "worth": 30,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "stealth",
+    "prob": 7,
+    "worth": 470,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "maintain armor",
+    "prob": 5,
+    "worth": 380,
+    "guess": null,
+    "know": false
+  }
+]

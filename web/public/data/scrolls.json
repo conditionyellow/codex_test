@@ -1,0 +1,128 @@
+[
+  {
+    "name": "monster confusion",
+    "prob": 7,
+    "worth": 140,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "magic mapping",
+    "prob": 4,
+    "worth": 150,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "hold monster",
+    "prob": 2,
+    "worth": 180,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "sleep",
+    "prob": 3,
+    "worth": 5,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "enchant armor",
+    "prob": 7,
+    "worth": 160,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "identify potion",
+    "prob": 10,
+    "worth": 80,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "identify scroll",
+    "prob": 10,
+    "worth": 80,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "identify weapon",
+    "prob": 6,
+    "worth": 80,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "identify armor",
+    "prob": 7,
+    "worth": 100,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "identify ring",
+    "prob": null,
+    "worth": 10,
+    "guess": "115",
+    "know": false
+  },
+  {
+    "name": "scare monster",
+    "prob": 3,
+    "worth": 200,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "food detection",
+    "prob": 2,
+    "worth": 60,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "teleportation",
+    "prob": 5,
+    "worth": 165,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "enchant weapon",
+    "prob": 8,
+    "worth": 150,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "create monster",
+    "prob": 4,
+    "worth": 75,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "remove curse",
+    "prob": 7,
+    "worth": 105,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "aggravate monsters",
+    "prob": 3,
+    "worth": 20,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "protect armor",
+    "prob": 2,
+    "worth": 250,
+    "guess": null,
+    "know": false
+  }
+]

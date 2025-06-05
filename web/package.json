@@ -4,7 +4,8 @@
   "description": "Simple web roguelike demo",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "extract-data": "node scripts/extract_rogue_data.js"
   },
   "dependencies": {
     "express": "^4.18.0"

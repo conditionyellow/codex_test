@@ -1,0 +1,58 @@
+[
+  {
+    "name": "leather armor",
+    "prob": 20,
+    "worth": 20,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "ring mail",
+    "prob": 15,
+    "worth": 25,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "studded leather armor",
+    "prob": 15,
+    "worth": 20,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "scale mail",
+    "prob": 13,
+    "worth": 30,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "chain mail",
+    "prob": 12,
+    "worth": 75,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "splint mail",
+    "prob": 10,
+    "worth": 80,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "banded mail",
+    "prob": 10,
+    "worth": 90,
+    "guess": null,
+    "know": false
+  },
+  {
+    "name": "plate mail",
+    "prob": 5,
+    "worth": 150,
+    "guess": null,
+    "know": false
+  }
+]
