@@ -1,0 +1,12 @@
+{
+  "name": "web-roguelike",
+  "version": "0.1.0",
+  "description": "Simple web roguelike demo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.0"
+  }
+}
