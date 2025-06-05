@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "extract-data": "node scripts/extract_rogue_data.js"
+    "extract-data": "node scripts/extract_rogue_data.js",
+    "generate-spec": "node scripts/generate_spec.js"
   },
   "dependencies": {
     "express": "^4.18.0"

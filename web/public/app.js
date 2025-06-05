@@ -3,6 +3,8 @@ const height = 24;
 let map = [];
 let player = { x: 1, y: 1, level: 1, exp: 0, hp: 10, maxhp: 10, str: 10, maxStr: 10 };
 let level = 1;
+let upStairs = null;
+let downStairs = null;
 let rooms = [];
 let monsters = [];
 let monstersData = [];
@@ -12,11 +14,103 @@ let inventory = [];
 let currentWeapon = null;
 let currentArmor = null;
 let messages = [];
+let gameOverFlag = false;
 const maxMessages = 5;
 
 // Random integer in [0, n)
 function rnd(n) {
   return Math.floor(Math.random() * n);
+}
+
+// Equipment stats mappings from original Rogue specifications
+const armorClass = {
+  'leather armor': 2,
+  'ring mail': 3,
+  'studded leather armor': 3,
+  'scale mail': 4,
+  'chain mail': 5,
+  'splint mail': 6,
+  'banded mail': 6,
+  'plate mail': 7
+};
+const weaponDamage = {
+  'mace': [1, 4],
+  'long sword': [1, 8],
+  'short bow': [1, 5],
+  'arrow': [1, 3],
+  'dagger': [1, 4],
+  'two handed sword': [2, 4],
+  'dart': [1, 3],
+  'shuriken': [1, 3],
+  'spear': [1, 6]
+};
+
+// Compute player's armor class including enchantment and protection ring
+function getPlayerAC() {
+  const base = currentArmor ? (armorClass[currentArmor.item.name] || 0) : 0;
+  return base + (currentArmor?.enchant || 0) + (player.protect ? 1 : 0);
+}
+
+// Determine if an attack hits based on attacker and defender stats
+function attackHits(attacker, defender) {
+  if (attacker === player) {
+    const chance = 75 + attacker.level * 2 + (currentWeapon?.enchant || 0) * 5;
+    return rnd(100) < chance;
+  } else {
+    const chance = 75 + attacker.lvl * 2 - getPlayerAC() * 5;
+    return rnd(100) < chance;
+  }
+}
+
+// Compute damage dealt by player based on weapon and enchantments
+function computePlayerDamage() {
+  let dmg;
+  if (currentWeapon && weaponDamage[currentWeapon.item.name]) {
+    const [n, d] = weaponDamage[currentWeapon.item.name];
+    dmg = roll(n, d);
+  } else {
+    dmg = roll(1, 2);
+  }
+  dmg += (currentWeapon?.enchant || 0) + (player.increaseDamage ? 1 : 0);
+  return dmg;
+}
+
+// Compute damage dealt by monster factoring in player's armor class
+function computeMonsterDamage(mon) {
+  let dmg = parseDamage(mon.dmg);
+  dmg -= getPlayerAC();
+  return dmg > 0 ? dmg : 0;
+}
+// Check that the dungeon's passable areas (rooms, corridors, doors, stairs) form one connected component
+function isConnected(grid) {
+  const h = grid.length, w = grid[0]?.length || 0;
+  const seen = Array.from({ length: h }, () => Array(w).fill(false));
+  const passable = c => c === '.' || c === '#' || c === '+' || c === '>' || c === '<';
+  let start = null;
+  for (let y = 0; y < h && !start; y++) {
+    for (let x = 0; x < w; x++) {
+      if (passable(grid[y][x])) { start = { x, y }; break; }
+    }
+  }
+  if (!start) return true;
+  const queue = [start];
+  seen[start.y][start.x] = true;
+  for (let i = 0; i < queue.length; i++) {
+    const { x, y } = queue[i];
+    for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) {
+      const nx = x + dx, ny = y + dy;
+      if (ny >= 0 && ny < h && nx >= 0 && nx < w && !seen[ny][nx] && passable(grid[ny][nx])) {
+        seen[ny][nx] = true;
+        queue.push({ x: nx, y: ny });
+      }
+    }
+  }
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      if (passable(grid[y][x]) && !seen[y][x]) return false;
+    }
+  }
+  return true;
 }
 
 // Generate dungeon layout using Rogue's original room/corridor algorithm
@@ -79,7 +173,36 @@ function generateDungeon(level = 1) {
   }
 
   doPassages(localRooms, grid, level);
+  // Ensure no isolated rooms or corridors; retry until fully connected
+  if (!isConnected(grid)) {
+    return generateDungeon(level);
+  }
   rooms = localRooms;
+  downStairs = (() => {
+    let pos;
+    do {
+      const rp = rooms[rnd(rooms.length)];
+      const x = rp.pos.x + 1 + rnd(rp.max.x - 2);
+      const y = rp.pos.y + 1 + rnd(rp.max.y - 2);
+      if (grid[y][x] === '.') { pos = { x, y }; break; }
+    } while (true);
+    grid[pos.y][pos.x] = '>';
+    return pos;
+  })();
+  upStairs = null;
+  if (level > 1) {
+    upStairs = (() => {
+      let pos;
+      do {
+        const rp = rooms[rnd(rooms.length)];
+        const x = rp.pos.x + 1 + rnd(rp.max.x - 2);
+        const y = rp.pos.y + 1 + rnd(rp.max.y - 2);
+        if (grid[y][x] === '.') { pos = { x, y }; break; }
+      } while (true);
+      grid[pos.y][pos.x] = '<';
+      return pos;
+    })();
+  }
   return grid;
 }
 
@@ -223,6 +346,7 @@ function connectRooms(i1, i2, rooms, grid) {
 }
 
 function draw() {
+  if (gameOverFlag) return;
   const rows = map.map(r => r.join(''));
   for (const it of items) {
     const sym = symbolFor(it.category);
@@ -238,12 +362,49 @@ function draw() {
   const row = rows[player.y];
   rows[player.y] = row.substring(0, player.x) + '@' + row.substring(player.x + 1);
   document.getElementById('map').textContent = rows.join('\n');
-  document.getElementById('status').textContent =
-    `HP: ${player.hp}/${player.maxhp}  Str: ${player.str}/${player.maxStr}  Lv: ${player.level}`;
+  // Update status line with equipment stats and active effects
+  let statusText = `HP: ${player.hp}/${player.maxhp}  Str: ${player.str}/${player.maxStr}  Lv: ${player.level}`;
+  if (currentWeapon) {
+    statusText += `  Wpn: ${currentWeapon.item.name}${currentWeapon.enchant ? ' +' + currentWeapon.enchant : ''}`;
+  }
+  if (currentArmor) {
+    statusText += `  Arm: ${getPlayerAC()}`;
+  }
+  const ringEffects = [];
+  if (player.protect) ringEffects.push('Prot');
+  if (player.sustain) ringEffects.push('Sust');
+  if (player.increaseDamage) ringEffects.push('Dmg+');
+  if (player.regeneration) ringEffects.push('Regen');
+  if (ringEffects.length) {
+    statusText += `  Effects: ${ringEffects.join(',')}`;
+  }
+  document.getElementById('status').textContent = statusText;
   renderLog();
 }
 
 // Message log management
+// Display the GAME OVER screen and halt further gameplay
+function gameOver() {
+  gameOverFlag = true;
+  const rows = [];
+  for (let y = 0; y < height; y++) {
+    rows.push(' '.repeat(width));
+  }
+  const text = 'GAME OVER';
+  const row = Math.floor(height / 2);
+  const col = Math.floor((width - text.length) / 2);
+  rows[row] = ' '.repeat(col) + text + ' '.repeat(width - col - text.length);
+  const hint = 'Press any key to restart';
+  const hintRow = row + 2;
+  if (hintRow < height) {
+    const hintCol = Math.floor((width - hint.length) / 2);
+    rows[hintRow] = ' '.repeat(hintCol) + hint + ' '.repeat(width - hintCol - hint.length);
+  }
+  document.getElementById('map').textContent = rows.join('\n');
+  document.getElementById('status').textContent = '';
+  document.getElementById('log').textContent = '';
+}
+
 function msg(text) {
   messages.push(text);
   if (messages.length > maxMessages) messages.shift();
@@ -261,6 +422,16 @@ function move(dx, dy) {
   const monster = monsters.find(m => m.pos.x === nx && m.pos.y === ny && m.hp > 0);
   if (monster) {
     fight(monster);
+  } else if (cell === '>' || cell === '<') {
+    if (cell === '>') {
+      level++;
+      msg(`You descend to level ${level}.`);
+    } else if (cell === '<' && level > 1) {
+      level--;
+      msg(`You ascend to level ${level}.`);
+    }
+    initGame();
+    return;
   } else if (cell === '.' || cell === '#' || cell === '+') {
     player.x = nx;
     player.y = ny;
@@ -276,6 +447,10 @@ function move(dx, dy) {
 }
 
 window.addEventListener('keydown', e => {
+  if (gameOverFlag) {
+    location.reload();
+    return;
+  }
   if (player.sleep > 0) {
     player.sleep--;
     msg('You are asleep.');
@@ -854,14 +1029,19 @@ function moveMonster(mon) {
   }
   if (moves.length) {
     const mpos = moves[rnd(moves.length)];
-    if (mpos.x === player.x && mpos.y === player.y) {
-      const dmg = parseDamage(mon.dmg);
-      player.hp -= dmg;
-      if (player.hp <= 0) msg('You died!');
-    } else {
-      mon.pos.x = mpos.x;
-      mon.pos.y = mpos.y;
-    }
+      if (mpos.x === player.x && mpos.y === player.y) {
+        if (!attackHits(mon, player)) {
+          msg(`The ${mon.name}'s attack misses you.`);
+        } else {
+          const mdmg = computeMonsterDamage(mon);
+          player.hp -= mdmg;
+          msg(`The ${mon.name} hits you for ${mdmg} damage.`);
+          if (player.hp <= 0) { gameOver(); return; }
+        }
+      } else {
+        mon.pos.x = mpos.x;
+        mon.pos.y = mpos.y;
+      }
   }
 }
 
@@ -870,25 +1050,40 @@ function fight(mon) {
     mon.confused = rnd(4) + 4;
     player.canConfuse = false;
     msg('The monster appears confused.');
+    return;
   }
-  const dmg = parseDamage(mon.dmg);
-  mon.hp -= dmg;
-  if (mon.hp <= 0) {
-    monsters = monsters.filter(m => m !== mon);
-    player.exp += mon.exp;
-    msg(`You gain ${mon.exp} experience points.`);
-    while (player.exp >= player.level * player.level * 10) {
-      player.exp -= player.level * player.level * 10;
-      player.level++;
-      player.maxhp += roll(player.level, 8);
-      player.hp = player.maxhp;
-      msg(`You advance to level ${player.level}!`);
-    }
+  // Player attack phase
+  if (!attackHits(player, mon)) {
+    msg(`You miss the ${mon.name}.`);
   } else {
-    const rdmg = parseDamage(mon.dmg);
-    player.hp -= rdmg;
-    if (player.hp <= 0) msg('You died!');
+    const dmg = computePlayerDamage();
+    mon.hp -= dmg;
+    msg(`You hit the ${mon.name} for ${dmg} damage.`);
+    if (mon.hp <= 0) {
+      monsters = monsters.filter(m => m !== mon);
+      player.exp += mon.exp;
+      msg(`You gain ${mon.exp} experience points.`);
+      while (player.exp >= player.level * player.level * 10) {
+        player.exp -= player.level * player.level * 10;
+        player.level++;
+        player.maxhp += roll(player.level, 8);
+        player.hp = player.maxhp;
+        msg(`You advance to level ${player.level}!`);
+      }
+      draw();
+      return;
+    }
   }
+  // Monster counterattack if still alive
+  if (!attackHits(mon, player)) {
+    msg(`The ${mon.name}'s attack misses you.`);
+  } else {
+    const rdmg = computeMonsterDamage(mon);
+    player.hp -= rdmg;
+    msg(`The ${mon.name} hits you for ${rdmg} damage.`);
+    if (player.hp <= 0) { gameOver(); return; }
+  }
+  draw();
 }
 
 initGame();
