@@ -1,7 +1,7 @@
 const width = 80;
 const height = 24;
 let map = [];
-let player = { x: 1, y: 1, level: 1, exp: 0, hp: 10, maxhp: 10, str: 10, maxStr: 10 };
+let player = { x: 1, y: 1, level: 1, exp: 0, hp: 10, maxhp: 10, str: 10, maxStr: 10, gold: 0 };
 let level = 1;
 let upStairs = null;
 let downStairs = null;
@@ -293,51 +293,47 @@ function doPassages(rooms, grid, level) {
 
 // Connect two rooms with a corridor and doors
 function connectRooms(i1, i2, rooms, grid) {
+  // 部屋のインデックスと方向を決定
   const rp1 = rooms[Math.min(i1, i2)];
   const rp2 = rooms[Math.min(i1, i2) + (Math.abs(i1 - i2) === 1 ? 1 : 3)];
   const down = Math.abs(i1 - i2) !== 1;
-  let spos = { x: rp1.pos.x, y: rp1.pos.y };
-  let epos = { x: rp2.pos.x, y: rp2.pos.y };
-  let del, turnDelta, distance, turnDistance;
+  // ドアの位置を部屋の壁上に正確に配置
+  let spos, epos;
   if (down) {
-    del = { x: 0, y: 1 };
-    spos.x = rp1.pos.x + rnd(rp1.max.x - 2) + 1;
-    spos.y = rp1.pos.y + rp1.max.y - 1;
-    epos.x = rp2.pos.x + rnd(rp2.max.x - 2) + 1;
-    distance = Math.abs(spos.y - epos.y) - 1;
-    turnDelta = { x: spos.x < epos.x ? 1 : -1, y: 0 };
-    turnDistance = Math.abs(spos.x - epos.x);
+    // 縦方向
+    const x1 = rp1.pos.x + 1 + rnd(rp1.max.x - 2);
+    const y1 = rp1.pos.y + rp1.max.y - 1; // 下壁
+    const x2 = rp2.pos.x + 1 + rnd(rp2.max.x - 2);
+    const y2 = rp2.pos.y; // 上壁
+    spos = { x: x1, y: y1 };
+    epos = { x: x2, y: y2 };
   } else {
-    del = { x: 1, y: 0 };
-    spos.x = rp1.pos.x + rp1.max.x - 1;
-    spos.y = rp1.pos.y + rnd(rp1.max.y - 2) + 1;
-    epos.y = rp2.pos.y + rnd(rp2.max.y - 2) + 1;
-    distance = Math.abs(spos.x - epos.x) - 1;
-    turnDelta = { x: 0, y: spos.y < epos.y ? 1 : -1 };
-    turnDistance = Math.abs(spos.y - epos.y);
+    // 横方向
+    const x1 = rp1.pos.x + rp1.max.x - 1; // 右壁
+    const y1 = rp1.pos.y + 1 + rnd(rp1.max.y - 2);
+    const x2 = rp2.pos.x; // 左壁
+    const y2 = rp2.pos.y + 1 + rnd(rp2.max.y - 2);
+    spos = { x: x1, y: y1 };
+    epos = { x: x2, y: y2 };
   }
-  const turnSpot = rnd(distance - 1) + 1;
+  // ドア設置
   door(rp1, spos, grid);
   door(rp2, epos, grid);
+  // 通路をドアからドアまで直線＋直角で掘る
   let curr = { x: spos.x, y: spos.y };
-  while (distance-- > 0) {
-    curr.x += del.x;
-    curr.y += del.y;
-    if (distance === turnSpot) {
-      let td = turnDistance;
-      while (td-- > 0) {
-        putpass(curr, grid);
-        curr.x += turnDelta.x;
-        curr.y += turnDelta.y;
-      }
-    }
+  // まず主方向に進む
+  while (curr.x !== epos.x) {
+    curr.x += Math.sign(epos.x - curr.x);
     putpass(curr, grid);
   }
-  curr.x += del.x;
-  curr.y += del.y;
-
+  while (curr.y !== epos.y) {
+    curr.y += Math.sign(epos.y - curr.y);
+    putpass(curr, grid);
+  }
+  // 内部関数
   function putpass(p, grid) {
-    grid[p.y][p.x] = '#';
+    // ドアの上書きを避ける
+    if (grid[p.y][p.x] !== '+') grid[p.y][p.x] = '#';
   }
   function door(rp, p, grid) {
     grid[p.y][p.x] = '+';
@@ -362,22 +358,11 @@ function draw() {
   const row = rows[player.y];
   rows[player.y] = row.substring(0, player.x) + '@' + row.substring(player.x + 1);
   document.getElementById('map').textContent = rows.join('\n');
-  // Update status line with equipment stats and active effects
-  let statusText = `HP: ${player.hp}/${player.maxhp}  Str: ${player.str}/${player.maxStr}  Lv: ${player.level}`;
-  if (currentWeapon) {
-    statusText += `  Wpn: ${currentWeapon.item.name}${currentWeapon.enchant ? ' +' + currentWeapon.enchant : ''}`;
-  }
-  if (currentArmor) {
-    statusText += `  Arm: ${getPlayerAC()}`;
-  }
-  const ringEffects = [];
-  if (player.protect) ringEffects.push('Prot');
-  if (player.sustain) ringEffects.push('Sust');
-  if (player.increaseDamage) ringEffects.push('Dmg+');
-  if (player.regeneration) ringEffects.push('Regen');
-  if (ringEffects.length) {
-    statusText += `  Effects: ${ringEffects.join(',')}`;
-  }
+  // --- Status line: Level, Gold, Hp, Str, Arm, Exp ---
+  const gold = player.gold !== undefined ? player.gold : 0;
+  const arm = getPlayerAC();
+  const exp = `${player.level}/${player.exp}`;
+  let statusText = `Level: ${level}  Gold: ${gold}      Hp: ${player.hp}(${player.maxhp})  Str: ${player.str}(${player.maxStr})  Arm: ${arm}  Exp: ${exp}`;
   document.getElementById('status').textContent = statusText;
   renderLog();
 }
